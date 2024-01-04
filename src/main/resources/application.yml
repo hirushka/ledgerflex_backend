@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/ledgerflex
+    username: root
+    password: abcd@1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+server:
+  port: 8089
+app:
+  jwtSecret: KBG9852H054RFF
+  jwtExpirationInMs: 604800000
+
