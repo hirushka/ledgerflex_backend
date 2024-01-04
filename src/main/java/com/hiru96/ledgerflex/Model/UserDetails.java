@@ -7,8 +7,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -29,9 +32,18 @@ public class UserDetails {
     @Enumerated
     @Column(name = "ROLE")
     private ERole role;
-    @Column(name="CREATED_DATE")
+    @Column(name="CREATED_DATE", nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createdDate;
     @JsonIgnore
     @JoinColumn(name = "USER_ID", referencedColumnName = "ID", nullable = false)
     @OneToOne
     private User user;
+    @Column(name="IS_ACTIVE", nullable = false)
+    private Boolean isActive;
+
+    @PrePersist
+    protected void onCreate() {
+        createdDate = LocalDateTime.now();
+    }
 }

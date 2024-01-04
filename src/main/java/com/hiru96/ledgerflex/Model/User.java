@@ -1,6 +1,5 @@
 package com.hiru96.ledgerflex.Model;
 
-import com.hiru96.ledgerflex.Model.Enum.ERole;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,5 +24,6 @@ public class User {
     private String username;
     @Column(name = "PASSWORD", nullable = false)
     private String password;
-
+    @Column(name="IS_ACTIVE", nullable = false)
+    private Boolean isActive;
 }
