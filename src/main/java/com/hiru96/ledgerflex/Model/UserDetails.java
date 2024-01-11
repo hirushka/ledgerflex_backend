@@ -1,6 +1,7 @@
 package com.hiru96.ledgerflex.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.hiru96.ledgerflex.Model.Enum.ECycleType;
 import com.hiru96.ledgerflex.Model.Enum.ERole;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +12,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -41,7 +43,15 @@ public class UserDetails {
     private User user;
     @Column(name="IS_ACTIVE", nullable = false)
     private Boolean isActive;
-
+    @Enumerated
+    @Column(name = "CYCLE_TYPE")
+    private ECycleType eCycleType;
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<IncomeCategory> incomeCategories = new ArrayList<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<ExpenseCategory> expenseCategories = new ArrayList<>();
     @PrePersist
     protected void onCreate() {
         createdDate = LocalDateTime.now();

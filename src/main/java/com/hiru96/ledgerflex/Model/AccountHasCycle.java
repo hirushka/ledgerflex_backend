@@ -1,5 +1,6 @@
 package com.hiru96.ledgerflex.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,17 +15,18 @@ import javax.persistence.*;
 @DynamicUpdate
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "USERS")
-public class User {
+@Table(name = "ACCOUNT_HAS_CYCLE")
+public class AccountHasCycle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     private Long id;
-    @Column(name = "USERNAME", nullable = false, length = 100)
-    private String username;
-    @Column(name = "PASSWORD", nullable = false)
-    private String password;
-    @Column(name = "IS_ACTIVE", nullable = false)
-    private Boolean isActive;
-
+    @JsonIgnore
+    @JoinColumn(name = "ACCOUNT_ID", referencedColumnName = "ID", nullable = false)
+    @ManyToOne
+    private Account account;
+    @JsonIgnore
+    @JoinColumn(name = "CYCLE_ID", referencedColumnName = "ID", nullable = false)
+    @ManyToOne
+    private Cycle cycle;
 }
